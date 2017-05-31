@@ -26,7 +26,7 @@ class awsS3Util {
     }
 
     const object = options.get('object')
-    if (!object.Bucket || !object.Key) {
+    if (object === undefined || !object.Bucket || !object.Key) {
       return new Error('missing S3 object parameters with bucket and key')
     }
 
@@ -39,8 +39,7 @@ class awsS3Util {
    * @returns {AWS.S3} an instance of AWS.S3 from aws-sdk
    */
   static initAWS (config = new Map()) {
-    AWS.config.update(config.get('config'))
-    return new AWS.S3()
+    return new AWS.S3(config.get('config'))
   }
 
   /**
@@ -55,11 +54,13 @@ class awsS3Util {
     }
 
     return new Promise((resolve, reject) => {
-      const s3 = this.initAWS(options)
-      const s3Params = options.get('object')
-
+      let s3
       let s3Metadata = ''
       let fileStream = {}
+
+      s3 = this.initAWS(options)
+
+      const s3Params = options.get('object')
 
       fileStream = s3.getObject(s3Params).createReadStream()
 
@@ -69,7 +70,7 @@ class awsS3Util {
       fileStream.on('data', data => {
         s3Metadata += data.toString()
 
-        if (maxSize && Buffer.byteLength(s3Metadata, maxSizeEncoding || 'utf-8') >= maxSize) {
+        if (maxSize && Buffer.byteLength(s3Metadata, maxSizeEncoding || 'utf-8') >= +maxSize) {
           return reject(new Error('string size exceeded'))
         }
       })

@@ -10,21 +10,19 @@ const test = global.test
 const expect = global.expect
 
 describe('Download To String', () => {
+
   it('should download the contents of an s3 object to a string', (done) => {
     const mockStr1 = 'hello 1'
     const mockStr2 = 'hello 2'
     const myStub = sinon.stub()
     myStub.returns({
       createReadStream: () => {
-        // throw new Error('made up error')
-
         const mockedStream = new stream.Readable()
         mockedStream._read = () => {}
 
         setTimeout(() => {
           mockedStream.emit('data', mockStr1)
           mockedStream.emit('data', mockStr2)
-          // mockedStream.emit('error', 'Hello data!')
 
           setTimeout(() => {
             mockedStream.emit('end', {})
@@ -41,12 +39,7 @@ describe('Download To String', () => {
 
     const params = new Map()
     params.set('config', { credentials: { accessKeyId: 'fake', secretAccessKey: 'key' } })
-    // params.set('config', { credentials: { accessKeyId: config.accessKeyId, secretAccessKey: config.secretAccessKey }} )
-
     params.set('object', { Bucket: 'somebucket', Key: 'filekey' })
-    // params.set('object', { Bucket: config.s3.bucket, Key: config.s3.fileKey })
-
-    // params.set('maxSize', 1000)
 
     awsS3Util.downloadToString(params)
       .then((result) => {
@@ -137,6 +130,44 @@ describe('Download To String', () => {
         validateOptionsSpy.restore()
 
         expect(error).toBe(mockErrorStr)
+        done()
+      })
+  })
+
+  it('should not download the s3 object if its bigger than a set limit', (done) => {
+    const mockStr1 = 'hello 1'
+    const myStub = sinon.stub()
+    myStub.returns({
+      createReadStream: () => {
+        const mockedStream = new stream.Readable()
+        mockedStream._read = () => {}
+
+        setTimeout(() => {
+          mockedStream.emit('data', mockStr1)
+
+          setTimeout(() => {
+            mockedStream.emit('end', {})
+          }, 200)
+        }, 100)
+
+        return mockedStream
+      }
+    })
+    let getObjectOrig = AWS.S3.prototype.getObject
+    AWS.S3.prototype.getObject = myStub
+
+    const params = new Map()
+    params.set('config', { credentials: { accessKeyId: 'fake', secretAccessKey: 'key' } })
+    params.set('object', { Bucket: 'somebucket', Key: 'filekey' })
+    params.set('maxSize', 2)
+
+    awsS3Util.downloadToString(params)
+      .then()
+      .catch((error) => {
+        // restore stub to original object
+        AWS.S3.prototype.getObject = getObjectOrig
+
+        expect(error.message).toBe('string size exceeded')
         done()
       })
   })
@@ -258,6 +289,25 @@ describe('Download To String', () => {
       })
   })
 
+  it('should throw an error if params object is missing', (done) => {
+    const validateOptionsSpy = sinon.spy(awsS3Util, 'validateBasicOptions')
+
+    const params = new Map()
+    params.set('config', { credentials: { accessKeyId: 'fake', secretAccessKey: 'key' } })
+
+    awsS3Util.downloadToString(params)
+      .then()
+      .catch((error) => {
+        // assert validateOptions method was called
+        sinon.assert.called(validateOptionsSpy)
+
+        expect(error.message).toBe('missing S3 object parameters with bucket and key')
+
+        validateOptionsSpy.restore()
+        done()
+      })
+  })
+
   it('should throw an error if params object is completely missing', (done) => {
     const validateOptionsSpy = sinon.spy(awsS3Util, 'validateBasicOptions')
 
@@ -268,22 +318,6 @@ describe('Download To String', () => {
         sinon.assert.called(validateOptionsSpy)
 
         expect(error.message).toBe('config is required with a credentials object')
-
-        validateOptionsSpy.restore()
-        done()
-      })
-  })
-
-  it('should throw an error if params object is an empty object', (done) => {
-    const validateOptionsSpy = sinon.spy(awsS3Util, 'validateBasicOptions')
-
-    awsS3Util.downloadToString({})
-      .then()
-      .catch((error) => {
-        // assert validateOptions method was called
-        sinon.assert.called(validateOptionsSpy)
-
-        expect(error.message).toBe('parameter must be a Map with config and object keys')
 
         validateOptionsSpy.restore()
         done()
