@@ -1,16 +1,11 @@
 'use strict'
 
-const fs = require('fs')
 const stream = require('stream')
 const sinon = require('sinon')
 const AWS = require('aws-sdk')
 const awsS3Util = require('../index.js')
 
-const test = global.test
-const expect = global.expect
-
 describe('Download To String', () => {
-
   it('should download the contents of an s3 object to a string', (done) => {
     const mockStr1 = 'hello 1'
     const mockStr2 = 'hello 2'
