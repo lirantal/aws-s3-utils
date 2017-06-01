@@ -1,21 +1,13 @@
-# Module Name
+# aws-s3-utils
 
 ## What is this?
 
-@TODO
+Node.js library providing high-level wrapper for convenient AWS S3 capabilities
 
 ## Installation
 
-Bold people use:
-
 ```bash
-yarn add <something>
-```
-
-The rest can use the mundane:
-
-```bash
-npm install --save <something>
+yarn add aws-s3-utils
 ```
 
 ## Usage
@@ -27,19 +19,20 @@ npm install --save <something>
 Project tests:
 
 ```bash
-npm run test
+yarn test
 ```
 
 Project linting:
 
 ```bash
-npm run lint
+yarn lint
+yarn lint:fix
 ```
 
-## Coverage
+## View Coverage
 
 ```bash
-npm run test:coverage
+yarn coverage:view
 ```
 
 ## Commit
@@ -49,5 +42,5 @@ messages so you should follow it as so:
 
 ```bash
 git add .           # add files to staging
-npm run commit      # use the wizard for the commit message
+yarn commit      # use the wizard for the commit message
 ```
