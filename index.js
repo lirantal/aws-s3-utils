@@ -108,7 +108,7 @@ class awsS3Util {
 
       let destFilePath
       try {
-        destFilePath = destDirectory || await this.createTempDirectory(tempDirectory) + path.sep + destFile
+        destFilePath = (destDirectory || await this.createTempDirectory(tempDirectory)) + path.sep + destFile
       } catch (err) {
         return reject(err)
       }
