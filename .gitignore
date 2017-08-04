@@ -12,6 +12,7 @@ coverage
 # IDE
 *.iml
 .idea
+.DS_Store
 
 # Docs
 docs/
