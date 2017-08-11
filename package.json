@@ -7,8 +7,8 @@
     "node": ">=6.10.0"
   },
   "scripts": {
-    "lint": "eslint *.js **/*.js",
-    "lint:fix": "eslint --fix *.js **/*.js",
+    "lint": "standard && eslint *.js **/*.js",
+    "lint:fix": "standard --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "coverage:view": "opn coverage/lcov-report/index.html",
@@ -19,13 +19,15 @@
   },
   "author": "Liran Tal",
   "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.58.0"
+  },
   "devDependencies": {
     "commitizen": "^2.9.5",
     "cz-conventional-changelog": "^1.2.0",
     "docco": "^0.7.0",
     "doxdox": "^2.0.1",
     "eslint": "^3.19.0",
-    "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-jest": "^20.0.3",
     "eslint-plugin-node": "^4.2.2",
@@ -63,7 +65,6 @@
       "jest"
     ],
     "extends": [
-      "eslint-config-standard",
       "plugin:node/recommended",
       "plugin:jest/recommended"
     ],
@@ -89,7 +90,7 @@
       }
     }
   },
-  "dependencies": {
-    "aws-sdk": "^2.58.0"
+  "standard": {
+    "env": ["jest"]
   }
 }
