@@ -2,6 +2,7 @@
 
 const stream = require('stream')
 const fs = require('fs')
+const path = require('path')
 const AWS = require('aws-sdk')
 const awsS3Util = require('../index.js')
 
@@ -64,8 +65,11 @@ describe('Download To File', () => {
       })
   })
 
-  it('should download the contents of an s3 object to a specified directory and filename', (done) => {
+  it.only('should download the contents of an s3 object to a specified directory and filename', async (done) => {
     const mockStr1 = 'hello 1'
+
+    // create a temporary directory to download files to
+    await createTempDirectory('/tmp/1')
 
     const spy = jest.spyOn(awsS3Util, 'validateBasicOptions')
     const origAWS = AWS.S3.prototype.getObject
@@ -116,6 +120,9 @@ describe('Download To File', () => {
 
         spy.mockReset()
         spy.mockRestore()
+
+        await removeFile('/tmp/1/fileout')
+        await removeDirectory('/tmp/1')
 
         done()
       })
@@ -308,6 +315,57 @@ function readFileAsync (filepath) {
       }
 
       return resolve(data)
+    })
+  })
+}
+
+/**
+ *
+ * @param tempDirectory
+ * @returns {Promise}
+ */
+function createTempDirectory (tempDirectory = '') {
+  return new Promise((resolve, reject) => {
+    fs.mkdir(`${String(tempDirectory)}${path.sep}`, (err, directory) => {
+      if (err) {
+        return reject(err)
+      }
+
+      return resolve(directory)
+    })
+  })
+}
+
+/**
+ *
+ * @param directoryName
+ * @returns {Promise}
+ */
+function removeDirectory (directoryName = '') {
+  return new Promise((resolve, reject) => {
+    fs.rmdir(`${String(directoryName)}${path.sep}`, (err, directory) => {
+      if (err) {
+        return reject(err)
+      }
+
+      return resolve(directory)
+    })
+  })
+}
+
+/**
+ *
+ * @param directoryName
+ * @returns {Promise}
+ */
+function removeFile (fileName = '') {
+  return new Promise((resolve, reject) => {
+    fs.unlink(`${String(fileName)}`, (err) => {
+      if (err) {
+        return reject(err)
+      }
+
+      return resolve()
     })
   })
 }
