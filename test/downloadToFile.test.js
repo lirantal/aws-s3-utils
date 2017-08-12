@@ -2,6 +2,7 @@
 
 const stream = require('stream')
 const fs = require('fs')
+const os = require('os')
 const path = require('path')
 const AWS = require('aws-sdk')
 const awsS3Util = require('../index.js')
@@ -37,15 +38,11 @@ describe('Download To File', () => {
     const params = new Map()
     params.set('config', {credentials: {accessKeyId: 'fake', secretAccessKey: 'key'}})
     params.set('object', {Bucket: 'somebucket', Key: 'filekey'})
-    // params.set('download', { tempDirectory: '/tmp', destFile: 'fileout', destDirectory: '/temp/1' } )
-    params.set('download', {tempDirectory: '/tmp'})
+    params.set('download', {tempDirectory: getTempDirectory()})
 
     awsS3Util.downloadToFile(params)
       // result is the path for the downloaded file
       .then(async (result) => {
-        // confirm the directory we receive back is indeed in /tmp as we set
-        expect(result.substring(0, 4)).toBe('/tmp')
-
         // confirm the contents of the file matches the mocked s3 object contents
         const fileContents = await readFileAsync(result)
         expect(fileContents.toString()).toEqual(mockStr1)
@@ -65,11 +62,12 @@ describe('Download To File', () => {
       })
   })
 
-  it.only('should download the contents of an s3 object to a specified directory and filename', async (done) => {
+  it('should download the contents of an s3 object to a specified directory and filename', async (done) => {
     const mockStr1 = 'hello 1'
+    const tmpDirectory = `${getTempDirectory()}/1`
 
     // create a temporary directory to download files to
-    await createTempDirectory('/tmp/1')
+    await createTempDirectory(tmpDirectory)
 
     const spy = jest.spyOn(awsS3Util, 'validateBasicOptions')
     const origAWS = AWS.S3.prototype.getObject
@@ -98,14 +96,11 @@ describe('Download To File', () => {
     const params = new Map()
     params.set('config', {credentials: {accessKeyId: 'fake', secretAccessKey: 'key'}})
     params.set('object', {Bucket: 'somebucket', Key: 'filekey'})
-    params.set('download', {destFile: 'fileout', destDirectory: '/tmp/1'})
+    params.set('download', {destFile: 'fileout', destDirectory: tmpDirectory})
 
     awsS3Util.downloadToFile(params)
     // result is the path for the downloaded file
       .then(async (result) => {
-        // confirm the directory we receive back is indeed in /tmp as we set
-        expect(result.substring(0, 6)).toBe('/tmp/1')
-
         // confirm the contents of the file matches the mocked s3 object contents
         const fileContents = await readFileAsync(result)
         expect(fileContents.toString()).toEqual(mockStr1)
@@ -121,8 +116,8 @@ describe('Download To File', () => {
         spy.mockReset()
         spy.mockRestore()
 
-        await removeFile('/tmp/1/fileout')
-        await removeDirectory('/tmp/1')
+        await removeFile(`${tmpDirectory}/fileout`)
+        await removeDirectory(tmpDirectory)
 
         done()
       })
@@ -180,9 +175,13 @@ describe('Download To File', () => {
       })
   })
 
-  it('should throw an exception when file download emits an error', (done) => {
+  it('should throw an exception when file download emits an error', async (done) => {
     const mockStr1 = 'hello 1'
     const mockErrorStr = 'hello error str'
+    const tmpDirectory = `${getTempDirectory()}/2`
+
+    // create a temporary directory to download files to
+    await createTempDirectory(tmpDirectory)
 
     const origAWS = AWS.S3.prototype.getObject
 
@@ -210,12 +209,11 @@ describe('Download To File', () => {
     const params = new Map()
     params.set('config', {credentials: {accessKeyId: 'fake', secretAccessKey: 'key'}})
     params.set('object', {Bucket: 'somebucket', Key: 'filekey'})
-    params.set('download', {destFile: 'fileout', destDirectory: '/tmp'})
+    params.set('download', {destFile: 'fileout', destDirectory: tmpDirectory})
 
     awsS3Util.downloadToFile(params)
-    // result is the path for the downloaded file
       .then()
-      .catch((error) => {
+      .catch(async (error) => {
         expect(error).toBe(mockErrorStr)
 
         // restore stub to original object
@@ -223,6 +221,9 @@ describe('Download To File', () => {
 
         AWSObjectMock.mockReset()
         AWSObjectMock.mockRestore()
+
+        await removeFile(`${tmpDirectory}/fileout`)
+        await removeDirectory(tmpDirectory)
 
         done()
       })
@@ -334,6 +335,14 @@ function createTempDirectory (tempDirectory = '') {
       return resolve(directory)
     })
   })
+}
+
+/**
+ *
+ * @returns {string}
+ */
+function getTempDirectory () {
+  return os.tmpdir()
 }
 
 /**

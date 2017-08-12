@@ -1,6 +1,7 @@
 'use strict'
 
 const fs = require('fs')
+const os = require('os')
 const path = require('path')
 const AWS = require('aws-sdk')
 
@@ -175,7 +176,7 @@ class awsS3Util {
    * @returns {string}
    */
   static defaultTempDirectory () {
-    return '/tmp'
+    return os.tmpdir()
   }
 }
 
