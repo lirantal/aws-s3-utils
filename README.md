@@ -1,5 +1,7 @@
 # aws-s3-utils
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/lirantal/aws-s3-utils.svg)](https://greenkeeper.io/)
+
 Node.js library providing high-level promise-based wrapper for convenient AWS S3 capabilities such as downloading an S3 object as a string or directly to a file. 
 
 ## Installation
