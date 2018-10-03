@@ -5,8 +5,9 @@ node_js:
   - "8"
   - "10"
  
-install:
+before:
   - yarn global add codecov
+
 script:
   - yarn run test
   - codecov
