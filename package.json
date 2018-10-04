@@ -4,7 +4,7 @@
   "description": "Node.js library providing high-level wrapper for convenient AWS S3 capabilities",
   "main": "index.js",
   "engines": {
-    "node": ">=6.10.0"
+    "node": ">=8.0.0"
   },
   "scripts": {
     "lint": "standard && eslint *.js **/*.js",
