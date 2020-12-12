@@ -20,7 +20,7 @@
   "author": "Liran Tal",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.58.0"
+    "aws-sdk": "^2.178.0"
   },
   "devDependencies": {
     "commitizen": "^2.9.5",
