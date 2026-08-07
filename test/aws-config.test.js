@@ -13,7 +13,7 @@ describe('Download To String - AWS Exceptions', () => {
     awsS3Util.downloadToString(params)
       .then()
       .catch((error) => {
-        expect(error.message).toBe(`Authorization header is invalid -- one and only one ' ' (space) required`)
+        expect(error.message).toBe('aws credentials for access key and secret key must be strings')
         expect(spy).toHaveBeenCalled()
 
         spy.mockReset()
