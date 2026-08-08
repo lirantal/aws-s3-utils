@@ -2,7 +2,7 @@
 
 Node.js library providing high-level promise-based wrapper for convenient AWS S3 capabilities such as downloading an S3 object as a string or directly to a file. 
 
-[![Build Status](https://travis-ci.org/lirantal/aws-s3-utils.svg?branch=master)](https://travis-ci.org/lirantal/aws-s3-utils) [![codecov](https://codecov.io/gh/lirantal/aws-s3-utils/branch/master/graph/badge.svg)](https://codecov.io/gh/lirantal/aws-s3-utils)
+<a href="https://github.com/lirantal/aws-s3-utils/actions/workflows/ci.yml"><img src="https://github.com/lirantal/aws-s3-utils/actions/workflows/ci.yml/badge.svg?branch=master" alt="build"/></a> [![codecov](https://codecov.io/gh/lirantal/aws-s3-utils/branch/master/graph/badge.svg)](https://codecov.io/gh/lirantal/aws-s3-utils)
 
 ## Installation
 

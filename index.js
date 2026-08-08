@@ -26,6 +26,10 @@ class awsS3Util {
       return new Error('missing aws credentials for secret or access key')
     }
 
+    if (typeof config.credentials.accessKeyId !== 'string' || typeof config.credentials.secretAccessKey !== 'string') {
+      return new Error('aws credentials for access key and secret key must be strings')
+    }
+
     const object = options.get('object')
     if (object === undefined || !object.Bucket || !object.Key) {
       return new Error('missing S3 object parameters with bucket and key')
