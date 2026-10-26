@@ -1416,46 +1416,51 @@ dox@0.9.0:
     jsdoctypeparser "^1.2.0"
     markdown-it "~7.0.0"
 
-doxdox-parser-dox@~1.1.0:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/doxdox-parser-dox/-/doxdox-parser-dox-1.1.1.tgz#978bdc3aa994d3d01132ce1036bf704aa076411b"
+doxdox-parser-dox@~1.1.1:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/doxdox-parser-dox/-/doxdox-parser-dox-1.1.3.tgz#507071f7ab8a5dfc4bccb24c7dc3a09fcc7d17f0"
+  integrity sha512-6fzVViLTmVI715aAJIf5S8eqpMZPgpNa/o5W34qsbS2ALtZ4ERH7vjofisHtVd/Xqs3UHGtj4eKbOzT1CopcZg==
   dependencies:
     dox "0.9.0"
 
-doxdox-plugin-bootstrap@~1.1.3:
+doxdox-plugin-bootstrap@~1.1.6:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/doxdox-plugin-bootstrap/-/doxdox-plugin-bootstrap-1.1.8.tgz#b133aad3dc1b216a37e753bf692c4345e072566f"
+  integrity sha512-Lu/1Phqc9a05wZBn9Tj5kID4O28tBMDiFDy/nCV17qKXuzxJeWovs95s18STQxGls8se/+f3h7woDjwtc3IB+Q==
+  dependencies:
+    handlebars "4.0.10"
+    highlight.js "9.12.0"
+    markdown-it "8.3.2"
+
+doxdox-plugin-handlebars@~1.1.4:
   version "1.1.6"
-  resolved "https://registry.yarnpkg.com/doxdox-plugin-bootstrap/-/doxdox-plugin-bootstrap-1.1.6.tgz#63ae0ff7b91de15fe10996c9579ba4091bd811af"
+  resolved "https://registry.yarnpkg.com/doxdox-plugin-handlebars/-/doxdox-plugin-handlebars-1.1.6.tgz#da242cf5ead1adbd83e8a993cba9478f7157f0b4"
+  integrity sha512-xJsfj5jIq3sEsvOkEXyywjrFaiOT8aoixAdN4zYr6aSEd2C5FIqzOph1AYM1RRKQktK/zl2jw1ORcg5Fjxsydg==
   dependencies:
-    handlebars "4.0.8"
-    highlight.js "9.11.0"
-    markdown-it "8.3.1"
+    handlebars "4.0.10"
+    highlight.js "9.12.0"
+    markdown-it "8.3.2"
 
-doxdox-plugin-handlebars@~1.1.2:
+doxdox-plugin-markdown@~1.1.2:
   version "1.1.4"
-  resolved "https://registry.yarnpkg.com/doxdox-plugin-handlebars/-/doxdox-plugin-handlebars-1.1.4.tgz#25861ba0884c24e597e5a3b4fbaaa777d6a12036"
+  resolved "https://registry.yarnpkg.com/doxdox-plugin-markdown/-/doxdox-plugin-markdown-1.1.4.tgz#7a66103c37058a8d17d8ede85a2b25d0ebbe9e1a"
+  integrity sha512-VJeZjWAZlcFFa0WIM+eSZKmDvfFP0tN5RUm8nS5uoDgzkMB+UhPCTnNI8VINUoyD2mz1MHJk6fVMFwbxZL5JeA==
   dependencies:
-    handlebars "4.0.8"
-    highlight.js "9.11.0"
-    markdown-it "8.3.1"
-
-doxdox-plugin-markdown@~1.1.1:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/doxdox-plugin-markdown/-/doxdox-plugin-markdown-1.1.2.tgz#a52a4f38905e9b8f8f51eb6c62285d8cbbc84833"
-  dependencies:
-    handlebars "4.0.8"
+    handlebars "4.0.10"
 
 doxdox@^2.0.1:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/doxdox/-/doxdox-2.0.2.tgz#556ceac641af4296f3bcc3bfe429f55f8632fdf5"
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/doxdox/-/doxdox-2.0.3.tgz#59fdaac00645b92a1b5b1390d6f0294d3cf1d7c7"
+  integrity sha512-PFwt8QWkqC//IDtIJNuWSuuK18BxiJTAOFK5MdWJvn8qyysgNrzT00w49GkiHGy5pPzDSnpLVCHUH4HibQHmvQ==
   dependencies:
     chalk "1.1.3"
-    doxdox-parser-dox "~1.1.0"
-    doxdox-plugin-bootstrap "~1.1.3"
-    doxdox-plugin-handlebars "~1.1.2"
-    doxdox-plugin-markdown "~1.1.1"
+    doxdox-parser-dox "~1.1.1"
+    doxdox-plugin-bootstrap "~1.1.6"
+    doxdox-plugin-handlebars "~1.1.4"
+    doxdox-plugin-markdown "~1.1.2"
     globby "6.1.0"
     parse-cmd-args "2.0.0"
-    update-notifier "2.0.0"
+    update-notifier "2.1.0"
 
 dunder-proto@^1.0.0, dunder-proto@^1.0.1:
   version "1.0.1"
@@ -2460,7 +2465,18 @@ growly@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/growly/-/growly-1.3.0.tgz#f10748cbe76af964b7c96c93c6bcc28af120c081"
 
-handlebars@4.0.8, handlebars@^4.0.3:
+handlebars@4.0.10:
+  version "4.0.10"
+  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.0.10.tgz#3d30c718b09a3d96f23ea4cc1f403c4d3ba9ff4f"
+  integrity sha512-QOJedxEjsSijGxDpK4pq2QLEGKrX+f7LbZZwhiYV68oi1pNIoQOi91phTdALHfah9zdqW1UxRAa4/8BFxj9FtQ==
+  dependencies:
+    async "^1.4.0"
+    optimist "^0.6.1"
+    source-map "^0.4.4"
+  optionalDependencies:
+    uglify-js "^2.6"
+
+handlebars@^4.0.3:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.0.8.tgz#22b875cd3f0e6cbea30314f144e82bc7a72ff420"
   dependencies:
@@ -2557,9 +2573,10 @@ hawk@~3.1.3:
     hoek "2.x.x"
     sntp "1.x.x"
 
-highlight.js@9.11.0:
-  version "9.11.0"
-  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.11.0.tgz#47f98c7399918700db2caf230ded12cec41a84ae"
+highlight.js@9.12.0:
+  version "9.12.0"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.12.0.tgz#e6d9dbe57cbefe60751f02af336195870c90c01e"
+  integrity sha512-qNnYpBDO/FQwYVur1+sQBQw7v0cxso1nOYLklqWh6af8ROwwTVoII5+kf/BVa8354WL4ad6rURHYGUXCbD9mMg==
 
 "highlight.js@~ 11.3.1":
   version "11.3.1"
@@ -3751,9 +3768,10 @@ map-obj@^1.0.0, map-obj@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-1.0.1.tgz#d933ceb9205d82bdcf4886f6742bdc2b4dea146d"
 
-markdown-it@8.3.1:
-  version "8.3.1"
-  resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-8.3.1.tgz#2f4b622948ccdc193d66f3ca2d43125ac4ac7323"
+markdown-it@8.3.2:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-8.3.2.tgz#df4b86530d17c3bc9beec3b68d770b92ea17ae96"
+  integrity sha512-4J92IhJq1kGoyXddwzzfjr9cEKGexBfFsZooKYMhMLLlWa4+dlSPDUUP7y+xQOCebIj61aLmKlowg//YcdPP1w==
   dependencies:
     argparse "^1.0.7"
     entities "~1.1.1"
@@ -5724,9 +5742,10 @@ unzip-response@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/unzip-response/-/unzip-response-2.0.1.tgz#d2f0f737d16b0615e72a6935ed04214572d56f97"
 
-update-notifier@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/update-notifier/-/update-notifier-2.0.0.tgz#1f2712fd2079f415980b5af95eb120e4aceea9a6"
+update-notifier@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/update-notifier/-/update-notifier-2.1.0.tgz#ec0c1e53536b76647a24b77cb83966d9315123d9"
+  integrity sha512-lgKln+91xHjY4GruKwjvF8sBoMmuhznBFlgEUQm3I14uUk1/UoSkH7YxMBiC6ljiJYysxscpVHX6CZfYrQakYQ==
   dependencies:
     boxen "^1.0.0"
     chalk "^1.0.0"
